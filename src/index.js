@@ -1,12 +1,42 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import "./index.css";
+import App from "./App";
+import {resolvers, typeDefs } from './resolvers'
+
+const cache =  new InMemoryCache();
+
+//We initialize the client with an HttpLink that points to our GraphQL endpoint and then also specify Apollo’s InMemoryCache as the caching utility.
+const client = new ApolloClient({
+  link: new HttpLink({
+    uri: `https://cors-anywhere.herokuapp.com/https://graphql.anilist.co/`
+  }), 
+  cache,
+  resolvers,
+  typeDefs
+});
+
+client.writeData({
+  data : {
+    name : 'nezuko',
+    history : [],
+    favorites : []
+  }
+})
+
+//We use the ApolloProvider component, pass it our client as prop and then wrap it around our App component.
+const AppWithProvider = () => (
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+);
+
+ReactDOM.render(<AppWithProvider />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// serviceWorker.unregister();

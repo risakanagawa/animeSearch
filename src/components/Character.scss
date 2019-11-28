@@ -1,0 +1,174 @@
+.input {
+    padding: 10px 25px;
+    font-size: 2rem;
+    border-radius: 20px;
+    box-shadow: none;
+    border: none;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 10px rgb(221, 87, 38);
+    }
+}
+
+.card {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    padding: 20px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 0 20px rgb(230, 230, 230);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .card-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-grow: 100%;
+    }
+
+    .balloon1-left {
+        position: relative;
+        display: inline-block;
+        margin: 10px 0 10px 15px;
+        padding: 7px 10px;
+        min-width: 100px;
+        max-width: 100%;
+        color: #555;
+        font-size: 16px;
+        background: #e0edff;
+        border-radius: 10px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 25%;
+            left: -18px;
+            border: 10px solid transparent;
+            border-right: 11px solid #e0edff;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    .add-icon {
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        background: coral;
+        border-radius: 50%;
+        box-shadow: 0 0 10px lightgrey;
+        cursor: pointer;
+
+        p {
+            display: none;
+            width: 200px;
+            position: absolute;
+            top: 40px;
+            right: 7px;
+            padding: 8px;
+            border-radius: 5px;
+            background: #33cc99;
+            color: #fff;
+            font-weight: bold;
+
+            &:after {
+                position: absolute;
+                width: 0;
+                height: 0;
+                right: 0px;
+                top: -16px;
+                margin-right: 10px;
+                border: solid transparent;
+                border-color: rgba(51, 204, 153, 0);
+                border-bottom-color: #33cc99;
+                border-width: 10px;
+                pointer-events: none;
+                content: " ";
+            }
+        }
+
+        &:hover p {
+            display: block;
+        }
+
+        i {
+            line-height: 50px;
+            color: #fff;
+        }
+
+    }
+}
+
+.card-description {
+    position: relative;
+    box-sizing: border-box;
+
+
+    .readmore-content {
+        position: relative;
+        overflow: hidden;
+        /*以下お好み*/
+        /*高さの初期値*/
+        height: 180px;
+
+        &::before {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            content: "";
+            /*以下お好み グラデーションの色と高さ 高さはreadmoreのheight以下にすること*/
+            height: 50px;
+            background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.8) 50%, #fff 100%);
+        }
+    }
+
+    .readmore-label {
+        display: table;
+        bottom: 5px;
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        margin: 0 auto;
+        z-index: 2;
+        padding: 0 10px;
+        background-color: #ff7777;
+        border-radius: 10px;
+        color: #FFF;
+
+        &::before {
+            content: 'read more';
+        }
+    }
+
+    .readmore-check {
+        display: none;
+
+        &:checked~.readmore-label {
+            display: none;
+        }
+
+        &:checked~.readmore-label {
+            display: none;
+        }
+
+        &:checked~.readmore-content {
+            height: auto;
+        }
+
+        &:checked~.readmore-content::before {
+            display: none;
+        }
+    }
+}
