@@ -8,7 +8,7 @@ export default function LeftContainer() {
         <div className="split split-left">
         <div className="left-container">
         <InputContainer />
-            <List />
+        <List />
         </div>
         <FavoriteBtn />
         </div>

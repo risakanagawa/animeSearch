@@ -1,14 +1,16 @@
 import React from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { ADD_FAVOURITE } from '../queries/query'
+// import { useMutation } from "@apollo/react-hooks";
+// import { ADD_FAVOURITE } from '../queries/query'
 
-export default function CharacterCard({ data }) {
-  const description = data.description.split(" ").length > 300;
-  const [addToFavorite] = useMutation(ADD_FAVOURITE);
+export default function AnimeCard({ data }) {
+  const {description, coverImage, genres, isAdult, title, status, relations} = data;
+  const newDescription = description.split(" ").length > 300;
+//   const [addToFavorite] = useMutation(ADD_FAVOURITE);
   return (
     <React.Fragment>
       <div className="card">
-        <div className="card-info">
+          <h1>{title.romaji}</h1>
+        {/* <div className="card-info">
           <img alt={data.name.full} src={data.image.medium} />
           <div className="card-info-name">
             <h3>{data.name.full}</h3>
@@ -38,11 +40,11 @@ export default function CharacterCard({ data }) {
         </div>
         <div
           className="add-icon"
-          onClick={() => addToFavorite({ variables : {favorite : data} })}
+        //   onClick={() => addToFavorite({ variables : {favorite : data} })}
         >
           <i className="fas fa-plus"></i>
           <p>Add to your favourite</p>
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );

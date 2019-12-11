@@ -1,20 +1,22 @@
 import React from "react";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
 import Input from "./Input";
-
-const UPDATE_TERM = gql`
-  mutation ChangeInput($name : String!){
-    changeInput (name : $name) @client
-  }
-`;
+import { UPDATE_TERM } from "../queries/query";
+import { useHistory } from "react-router-dom";
 
 const InputContainer = () => {
+  let history = useHistory();
+
   return (
-    <Mutation mutation={UPDATE_TERM}>
-      {changeInput => (
-         <Input changeTerm={changeInput} />
-      )}
+    <Mutation 
+      mutation={UPDATE_TERM}
+      onCompleted={() => {
+        if(history.location.pathname !== '/'){
+          history.push('/')
+        }
+      }}
+    >
+      {changeInput => <Input changeTerm={changeInput} />}
     </Mutation>
   );
 };

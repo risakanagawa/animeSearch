@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import { GET_HISTORY, GET_FAVORITES, GET_TERM } from "./queries/query";
 
 export const typeDefs = gql`
   extend type Mutation {
@@ -6,42 +7,28 @@ export const typeDefs = gql`
   }
 `;
 
-const GET_LIST = gql`
-  {
-    history @client
-  }
-`;
-
-const GET_FAVORITE = gql`
-  {
-    favorites @client
-  }
-`;
-
-const GET_NAME = gql`
-  {
-    name @client
-  }
-`;
-
 export const resolvers = {
   Mutation: {
-    changeInput: (parent, term, { cache }, info) => {
-      console.log("changeInput", term);
-
-      const newTerm = term.name;
-
+    changeInput: (parent, { search }, { cache }, info) => {
+      const newTerm = search.term;
+      const newSearchAnime = search.searchAnime;
       cache.writeQuery({
-        query: GET_NAME,
+        query: GET_TERM,
         data: {
-          name: newTerm
+          search: {
+            __typename : 'searchTerm',
+            term: newTerm,
+            searchAnime: newSearchAnime
+          }
         }
       });
+
       return null;
     },
-    AddList: (parent, { name }, { cache }, info) => {
+    addHistory: (parent, { name }, { cache }, info) => {
+      console.log(name);
       const newName = name;
-      const { history } = cache.readQuery({ query: GET_LIST });
+      const { history } = cache.readQuery({ query: GET_HISTORY });
 
       if (history.length >= 4) {
         history.shift();
@@ -49,42 +36,57 @@ export const resolvers = {
 
       const newArr = history.concat(newName);
       cache.writeQuery({
-        query: GET_LIST,
+        query: GET_HISTORY,
         data: {
           history: newArr
         }
       });
     },
     DeleteHistory: (__, idx, { cache }, info) => {
-      console.log('delete', idx)
-      const { history } = cache.readQuery({ query: GET_LIST });
-      history.splice(idx, 1);
+      const { history } = cache.readQuery({ query: GET_HISTORY });
+      const newHistory = history.splice(idx, 1);
       cache.writeQuery({
-        query: GET_LIST,
+        query: GET_HISTORY,
         data: {
-          history
+          history: newHistory
         }
       });
     },
-    addFavorite: (_parent,   {favorite}, { cache }, info) => {
+    addFavorite: (_parent, { favorite }, { cache }, info) => {
       const newFavorite = favorite;
       const { favorites } = cache.readQuery({
-        query: GET_FAVORITE
+        query: GET_FAVORITES
       });
-      
-      if(favorites.find(obj => obj.siteUrl === newFavorite.siteUrl)) {
+
+      if (favorites.find(obj => obj.siteUrl === newFavorite.siteUrl)) {
         return;
       }
 
-      favorites.push(newFavorite);
+      const newArr = favorites.concat(newFavorite);
+
       cache.writeQuery({
-        query: GET_LIST,
-        data: { favorites }
+        query: GET_FAVORITES,
+        data: { favorites: newArr }
+      });
+    },
+    deleteFavorite: (__, _siteUrl, { cache }, info) => {
+      console.log(_siteUrl);
+      const url = _siteUrl.url;
+
+      const { favorites } = cache.readQuery({
+        query: GET_FAVORITES
       });
 
-      console.log(
-        favorites
-      );
+      const arr = favorites.filter(function(el) {
+        return el.siteUrl !== url;
+      });
+
+      cache.writeQuery({
+        query: GET_FAVORITES,
+        data: {
+          favorites: arr
+        }
+      });
     }
   }
 };

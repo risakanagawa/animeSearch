@@ -1,35 +1,21 @@
 import React from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import {GET_HISTORY, UPDATE_TERM, DELETE_TERM} from '../queries/query'
 
-const GET_LIST = gql`
-  {
-    history @client
-  }
-`;
-
-const UPDATE_TERM = gql`
-  mutation ChangeInput($name: String!) {
-    changeInput(name: $name) @client
-  }
-`;
-
-const DELETE_TERM = gql`
-  mutation DeleteHistory($idx: Int!) {
-    DeleteHistory(idx: $idx) @client
-  }
-`;
 
 export default function List() {
-  const { data } = useQuery(GET_LIST);
-  const [changeInput] = useMutation(UPDATE_TERM);
+  const { data } = useQuery(GET_HISTORY);
+  const [updateSearch] = useMutation(UPDATE_TERM);
   const [deleteList] = useMutation(DELETE_TERM);
+  console.log(data)
   return (
     <div>
+      {/* {data.history.length === 0 ? null : <span>------ Search History ------</span>} */}
       <ul>
         {data.history.reverse().map((name, idx) => {
+          console.log(name)
           return (
-            <li key={idx} onClick={e => changeInput({ variables: { name } })}>
+            <li key={idx} onClick={e => updateSearch({ variables: { name } })}>
               <span>{name}</span> 
               <button onClick={e => deleteList({ variables: { idx } })}>
                 x

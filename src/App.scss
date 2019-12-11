@@ -64,11 +64,57 @@
     background: tomato;
     box-shadow: 0px 2px 2px rgb(226, 84, 59);
     border-bottom: 2px solid rgb(226, 84, 59);
+     &:hover {
+      border-bottom: none;
+     }
     i {
       font-size: 30px;
       color: #fff;
       line-height: 80px;
+      .clicked {
+        animation: heartAnime 800ms;
+      }
     }
+    span {
+      position: absolute;
+    height: 30px;
+    width: 30px;
+    background: red;
+    line-height: 30px;
+    border-radius: 20px;
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 2px solid brown;
+    }
+  }
+}
+
+.header {
+  background: rgba(255, 238, 0, 0.7);
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  span {
+    font-size: 5rem;
+    font-weight: bold;
+    -webkit-text-stroke: 2px #FFF;
+    text-stroke: 2px #FFF;  
+    margin-left: 20px;
+  }
+}
+
+@keyframes heartAnime {
+  0% {
+    transform: scale(0);
+  }
+  75% {
+    transform: scale(1.1, 0.9) translate(0%, 5%);
+  }
+  80% {
+    transform: scale(0.95, 1.05) translate(0%, -3%);
+  }
+  100% {
+    transform: scale(1, 1) translate(0%, 0%);
   }
 }
 

@@ -21,6 +21,11 @@ const client = new ApolloClient({
 
 client.writeData({
   data : {
+    search : {
+      __typename : 'searchTerm',
+      term : 'nezuko',
+      searchAnime : false
+    },
     name : 'nezuko',
     history : [],
     favorites : []

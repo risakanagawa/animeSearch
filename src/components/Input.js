@@ -1,34 +1,36 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-
-const ADD_LIST = gql`
-  mutation AddList($name : String!){
-    AddList (name : $name) @client
-  }
-`;
+import { ADD_HISTORY } from "../queries/query";
+import Checkbox from "./Checkbox";
 
 export default function Input({ changeTerm }) {
-  const [name, setstate] = useState({ name: "" });
-  const [changeInput] = useMutation(ADD_LIST);
+  const [search, setSearch] = useState({
+      term: "nezuko",
+      searchAnime: false
+  });
+  const toggle = () => setSearch(prev => ({...prev, searchAnime: !search.searchAnime }));
+  const [addHistory] = useMutation(ADD_HISTORY);
 
   return (
-    <div >
+    <div>
       <form
         onSubmit={e => {
           e.preventDefault();
-          changeInput({ variables: { name } });
-          changeTerm({ variables: { name } });
+          console.log({search})
+          // addHistory({ variables: { term } });
+          changeTerm({ variables:  {search}  });
         }}
-        noValidate
         autoComplete="off"
       >
+        <Checkbox checked={search.searchAnime} handleToggle={toggle} />
         <input
           className="input"
           defaultValue="Nezuko"
           type="text"
-          onChange={e => setstate(e.target.value)}
-        />
+          onChange={e => {
+            const val = e.target.value;
+            setSearch(prev => ({...prev, term : val}))
+          }}/>
       </form>
     </div>
   );
