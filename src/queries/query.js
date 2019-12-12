@@ -1,6 +1,5 @@
 import gql from "graphql-tag";
 
-
 export const GET_MEDIA = gql`
   query getMedia($search: String!) {
     Media(search: $search) {
@@ -17,6 +16,7 @@ export const GET_MEDIA = gql`
       description
       isAdult
       genres
+      siteUrl
       coverImage {
         extraLarge
         large
@@ -27,6 +27,7 @@ export const GET_MEDIA = gql`
       relations {
         nodes {
           id
+          type
           title {
             romaji
             english
@@ -45,7 +46,6 @@ export const GET_MEDIA = gql`
   }
 `;
 
-
 export const GET_CHARA = gql`
 query GetCharacter($search: String!) {
   Character(search: $search) {
@@ -61,24 +61,19 @@ query GetCharacter($search: String!) {
     }
     media {
       nodes {
+        id
+        type
         title {
           romaji
           english
           native
           userPreferred
         }
-        relations {
-          nodes {
-            title {
-              userPreferred
-            }
-            type
-            coverImage {
-              large
-              medium
-              color
-            }
-          }
+        coverImage {
+          extraLarge
+          large
+          medium
+          color
         }
       }
     }
@@ -88,13 +83,12 @@ query GetCharacter($search: String!) {
 
 export const GET_TERM = gql`
   {
-    search  @client {
+    search @client {
       term
       searchAnime
     }
   }
 `;
-
 
 export const GET_FAVORITES = gql`
   {
@@ -109,14 +103,14 @@ export const GET_HISTORY = gql`
 `;
 
 export const ADD_HISTORY = gql`
-mutation AddHistory($name : String!){
-  addHistory (name : $name) @client
-}
+  mutation AddHistory($term: String!) {
+    addHistory(term: $term) @client
+  }
 `;
 
 export const UPDATE_TERM = gql`
-  mutation ChangeInput($search : search) {
-    changeInput(search : $search) @client
+  mutation ChangeInput($search: search) {
+    changeInput(search: $search) @client
   }
 `;
 
@@ -127,13 +121,13 @@ export const DELETE_TERM = gql`
 `;
 
 export const ADD_FAVOURITE = gql`
-  mutation AddFavorite($favorite : favorite) {
-    addFavorite(favorite : $favorite) @client
+  mutation AddFavorite($favorite: favorite) {
+    addFavorite(favorite: $favorite) @client
   }
 `;
 
 export const DELETE_FAVOURITE = gql`
-  mutation DeleteFavorite($url : String) {
-    deleteFavorite(url : $url) @client
+  mutation DeleteFavorite($url: String) {
+    deleteFavorite(url: $url) @client
   }
 `;

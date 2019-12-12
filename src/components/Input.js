@@ -16,8 +16,7 @@ export default function Input({ changeTerm }) {
       <form
         onSubmit={e => {
           e.preventDefault();
-          console.log({search})
-          // addHistory({ variables: { term } });
+          addHistory({ variables: { term : search.term } });
           changeTerm({ variables:  {search}  });
         }}
         autoComplete="off"

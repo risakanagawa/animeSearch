@@ -13,20 +13,21 @@
 
 .card {
     position: relative;
-    width: 400px;
-    height: 500px;
+    width: 90%;
+    height: auto;
     padding: 20px;
     background: rgb(255, 255, 255);
     box-shadow: 0 0 20px rgb(230, 230, 230);
     border-radius: 20px;
     display: flex;
-    flex-direction: column;
+    margin-top: 100px;
 
-    .card-info {
+    .card-contents {
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        justify-content: space-around;
-        flex-grow: 100%;
+        padding: 20px;
     }
 
     .balloon1-left {
@@ -110,7 +111,7 @@
 .card-description {
     position: relative;
     box-sizing: border-box;
-
+   
     .readmore-content {
         position: relative;
         overflow: hidden;
@@ -169,6 +170,16 @@
     }
 }
 
+.anime-info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    ul {
+        list-style: none;
+        text-align: left;
+    }
+}
+
 .favorite-container {
     .favorite-list {
         display: flex;
@@ -178,7 +189,7 @@
         box-shadow: 0 0 10px gainsboro;
         border-radius: 20px;
         padding: 10px;
-        margin-top: 10px;
+        margin-top: 100px;
     }
 
     .favorite-info {
@@ -201,6 +212,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     span {
         height: 0px;
         margin: 0 10px;
@@ -248,5 +260,27 @@
 
     &:active .react-switch-button {
         width: 60px;
+    }
+}
+
+.related-container {
+    width: 90%;
+    text-align: left;
+    .scroll-wrapper {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        padding: 20px;
+        .related-box {
+            width: 32%;
+            margin: 5px;
+            .related-title {
+                cursor: pointer;
+                width: 150px;
+                font-weight: bold;
+            }
+            
+        }
     }
 }

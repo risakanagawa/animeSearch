@@ -25,9 +25,8 @@ export const resolvers = {
 
       return null;
     },
-    addHistory: (parent, { name }, { cache }, info) => {
-      console.log(name);
-      const newName = name;
+    addHistory: (parent, { term }, { cache }, info) => {
+      const newName = term;
       const { history } = cache.readQuery({ query: GET_HISTORY });
 
       if (history.length >= 4) {

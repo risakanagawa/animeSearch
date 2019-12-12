@@ -15,7 +15,7 @@ function App() {
   return (
     <Router >
       <Header />
-    <div className="App split-container">
+    <div className="split-container">
     <LeftContainer />
 
     <Switch>
