@@ -4,6 +4,8 @@
     border-radius: 20px;
     box-shadow: none;
     border: none;
+    box-sizing: border-box;
+    width: 90%;
 
     &:focus {
         outline: none;
@@ -172,11 +174,12 @@
 
 .anime-info {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
     ul {
         list-style: none;
         text-align: left;
+        padding: 0;
     }
 }
 
@@ -189,7 +192,7 @@
         box-shadow: 0 0 10px gainsboro;
         border-radius: 20px;
         padding: 10px;
-        margin-top: 100px;
+        margin-top: 60px;
     }
 
     .favorite-info {
@@ -214,6 +217,7 @@
     align-items: center;
 
     span {
+        color: #fff;
         height: 0px;
         margin: 0 10px;
     }
@@ -275,9 +279,12 @@
         .related-box {
             width: 32%;
             margin: 5px;
+            .related-image {
+                cursor: pointer;
+            }
             .related-title {
                 cursor: pointer;
-                width: 150px;
+                width: 250px;
                 font-weight: bold;
             }
             

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { ADD_HISTORY } from "../queries/query";
+import { ADD_HISTORY } from "../../queries/query";
 import Checkbox from "./Checkbox";
 
 export default function Input({ changeTerm }) {
@@ -12,7 +12,6 @@ export default function Input({ changeTerm }) {
   const [addHistory] = useMutation(ADD_HISTORY);
 
   return (
-    <div>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -31,6 +30,5 @@ export default function Input({ changeTerm }) {
             setSearch(prev => ({...prev, term : val}))
           }}/>
       </form>
-    </div>
   );
 }

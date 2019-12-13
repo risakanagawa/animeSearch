@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import { useQuery } from "@apollo/react-hooks";
-import { GET_FAVORITES } from "../queries/query";
+import { GET_FAVORITES } from "../../queries/query";
 
 export default function FavoriteBtn() {
   const { data } = useQuery(GET_FAVORITES);
-  console.log(data)
   return (
     <Link to="/favorites">
       <div className="favorite-btn">

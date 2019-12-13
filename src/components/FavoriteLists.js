@@ -3,7 +3,6 @@ import { useMutation } from "@apollo/react-hooks";
 import { DELETE_FAVOURITE } from "../queries/query";
 
 export default function FavoriteLists({ favorites }) {
-  console.log(favorites);
   const [deleteFavorite] = useMutation(DELETE_FAVOURITE);
   const renderList = () => {
     return favorites.map((favorite, idx) => {

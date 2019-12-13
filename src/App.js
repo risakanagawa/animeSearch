@@ -5,19 +5,17 @@ import {
   Route,
 } from "react-router-dom";
 import "./App.scss";
+import "./responsive.scss"
 import "./components/Character.scss"
 import RightContainer from "./components/RightContainer";
-import LeftContainer from "./components/LeftContainer";
+import LeftContainer from "./components/Left/LeftContainer";
 import FavoriteListContainer from "./components/FavoriteList.container";
-import Header from './Header'
 
 function App() {
   return (
     <Router >
-      <Header />
     <div className="split-container">
     <LeftContainer />
-
     <Switch>
           <Route path="/favorites">
             <FavoriteListContainer />

@@ -69,7 +69,6 @@ export const resolvers = {
       });
     },
     deleteFavorite: (__, _siteUrl, { cache }, info) => {
-      console.log(_siteUrl);
       const url = _siteUrl.url;
 
       const { favorites } = cache.readQuery({

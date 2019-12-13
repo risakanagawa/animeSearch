@@ -1,7 +1,4 @@
 import React from "react";
-import RelationsCard from "./Relations.card";
-// import { useMutation } from "@apollo/react-hooks";
-// import { ADD_FAVOURITE } from '../queries/query'
 
 export default function AnimeCard({ data }) {
   const {
@@ -13,9 +10,7 @@ export default function AnimeCard({ data }) {
     isAdult,
     title,
     status,
-    relations
   } = data;
-  //   const [addToFavorite] = useMutation(ADD_FAVOURITE);
   return (
     <React.Fragment>
       <div className="card">
@@ -28,7 +23,7 @@ export default function AnimeCard({ data }) {
         <div className="card-contents">
           <div className="card-description">
             <input id="readmore" className="readmore-check" type="checkbox" />
-            <label className="readmore-label" htmlFor="readmore"></label>
+            {description.split(' ').length > 100 ? <label className="readmore-label" htmlFor="readmore"></label> : null } 
             <div className="readmore-content">
               <p>
                 {description}
@@ -51,7 +46,6 @@ export default function AnimeCard({ data }) {
           </div>
           <a href={siteUrl}>More Details at Anilist</a>
         </div>
-        {/* <RelationsCard relations={relations} /> */}
       </div>
     </React.Fragment>
   );

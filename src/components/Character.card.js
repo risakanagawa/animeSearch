@@ -17,7 +17,7 @@ export default function CharacterCard({ data }) {
         <p>{data.media.nodes[0].title.english}</p>
           <div className="card-description">
             <input id="readmore" className="readmore-check" type="checkbox" />
-            <label className="readmore-label" htmlFor="readmore"></label>
+          {data.description && data.description.split(' ').length > 50 ? <label className="readmore-label" htmlFor="readmore"></label> : null}  
             <div className="readmore-content">
               <p>
                 {data.description && data.description}
